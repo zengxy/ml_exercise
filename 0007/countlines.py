@@ -1,12 +1,13 @@
 # 有个目录，里面是你自己写过的程序，统计一下你写过多少行代码。包括空行和注释，但是要分别列出来
 __author__ = 'zengxianyu'
 
+import sys
 
 def countLines(filepath):
     total_lines = 0
     empty_lines = 0
     comment_lines = 0
-    with open(filepath) as f:
+    with open(filepath,encoding=sys.getdefaultencoding()) as f:
         for line in f:
             total_lines += 1
             if line.strip() == '':
@@ -19,5 +20,5 @@ def countLines(filepath):
 
 
 if __name__ == '__main__':
-    file = 'countlines.py'
+    file = 'a.txt'
     print(countLines(file))
