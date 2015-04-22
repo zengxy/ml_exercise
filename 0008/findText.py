@@ -27,8 +27,10 @@ def test():
 def findtext(url):
     req = request.Request(url)
     html = request.urlopen(req).read()
-
-    print(BeautifulSoup(html).get_text())
+    soup=BeautifulSoup(html)
+    article = soup.find("div", class_="show-content")
+    for paragraph in article.find_all('p'):
+         print(paragraph.get_text())
 
 
 if __name__ == '__main__':
