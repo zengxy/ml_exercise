@@ -24,3 +24,4 @@ def generateIMG(str, charsize=20):
 if __name__ == '__main__':
     code = generateCode(string.ascii_letters + string.digits)
     generateIMG(code)
+                                                                                                                                                                                                                                                              

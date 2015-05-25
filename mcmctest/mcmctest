@@ -1,0 +1,47 @@
+import random
+
+# 要采样得到的概率分布
+p = [0.1, 0.9]
+#任意转移矩阵
+trans = [[0.5, 0.5], [0.5, 0.5]]
+
+
+def mcmc(T):
+    #初始化
+    mcmcSeq = [1]
+    lastTime = 1
+    for i in range(0, T):
+        thisTime = getThisTime(lastTime)
+
+        alpha = min(1, (p[thisTime] * trans[thisTime][lastTime]) / (p[lastTime] * trans[lastTime][thisTime]))
+
+        alpha = min(1, p[thisTime]/p[lastTime])
+
+
+        u = random.uniform(0, 1)
+        if u < alpha:
+            mcmcSeq.append(thisTime)
+        else:
+            mcmcSeq.append(lastTime)
+        lastTime=thisTime
+    return mcmcSeq
+
+
+def getThisTime(last):
+    p = random.uniform(0, 1)
+    if p < trans[last][last]:
+        return last;
+    else:
+        return 1 - last
+
+
+def mcmcTest(T):
+    mcmcSeq = mcmc(T)
+    sum = 0
+    for i in range( int(T/2) , T):
+        sum += mcmcSeq[i]
+    print(sum)
+
+
+if __name__ == '__main__':
+    mcmcTest(2*100000)
